@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//src/com/alipay/config/AlipayConfig.java=UTF-8
+encoding//src/com/alipay/sign/Base64.java=UTF-8
+encoding//src/com/alipay/sign/RSA.java=UTF-8
+encoding//src/com/alipay/util/AlipayNotify.java=UTF-8

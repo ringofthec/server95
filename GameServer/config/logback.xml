@@ -1,0 +1,259 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<configuration scan="true" debug="false">
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+			<evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+				<marker>Event</marker>
+				<marker>Item</marker>
+				<marker>Store</marker>
+				<marker>Recharge</marker>
+				<marker>NewPlayer</marker>
+				<marker>LogInOut</marker>
+				<marker>LogIn</marker>
+				<marker>LevelUp</marker>
+				<marker>SystemError</marker>
+			</evaluator>
+			<OnMismatch>ACCEPT</OnMismatch>
+			<OnMatch>DENY</OnMatch>
+		</filter>
+		<encoder>
+			<charset>utf-8</charset>
+			<pattern>
+				[%date{yyyy-MM-dd HH:mm:ss}]\t[%thread] %-5level %logger{0} - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="DEBUG_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>log/debug.log</file>
+		<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+			<evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+				<marker>Event</marker>
+				<marker>Item</marker>
+				<marker>Store</marker>
+				<marker>Recharge</marker>
+				<marker>NewPlayer</marker>
+				<marker>LogInOut</marker>
+				<marker>LogIn</marker>
+				<marker>LevelUp</marker>
+				<marker>SystemError</marker>
+			</evaluator>
+			<OnMismatch>ACCEPT</OnMismatch>
+			<OnMatch>DENY</OnMatch>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>log/backup/debug.%d{yyyy-MM-dd}.log.zip
+			</fileNamePattern> <!-- daily rollover -->
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>[%date{yyyy-MM-dd HH:mm:ss}]\tuid:%X{uid} [%thread]
+				[%-5level] %logger{0} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="ERRORS_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>WARN</level>
+		</filter>
+		<file>log/errors.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>log/backup/errors.%d{yyyy-MM-dd}.log.zip
+			</fileNamePattern> <!-- daily rollover -->
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>[%date{yyyy-MM-dd HH:mm:ss}]\t%-4relative [%thread] %-5level %logger{0} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="Event_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+			<evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+				<marker>Event</marker>
+			</evaluator>
+			<OnMismatch>DENY</OnMismatch>
+			<OnMatch>ACCEPT</OnMatch>
+		</filter>
+		<file>log/event.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>log/backup/event.%d{yyyy-MM-dd}.log.zip
+			</fileNamePattern> <!-- daily rollover -->
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="Item_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+			<evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+				<marker>Item</marker>
+			</evaluator>
+			<OnMismatch>DENY</OnMismatch>
+			<OnMatch>ACCEPT</OnMatch>
+		</filter>
+		<file>log/item.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>log/backup/item.%d{yyyy-MM-dd}.log.zip
+			</fileNamePattern> <!-- daily rollover -->
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="Store_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+			<evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+				<marker>Store</marker>
+			</evaluator>
+			<OnMismatch>DENY</OnMismatch>
+			<OnMatch>ACCEPT</OnMatch>
+		</filter>
+		<file>log/store.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>log/backup/store.%d{yyyy-MM-dd}.log.zip
+			</fileNamePattern> <!-- daily rollover -->
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="Recharge_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+			<evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+				<marker>Recharge</marker>
+			</evaluator>
+			<OnMismatch>DENY</OnMismatch>
+			<OnMatch>ACCEPT</OnMatch>
+		</filter>
+		<file>log/recharge.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>log/backup/recharge.%d{yyyy-MM-dd}.log.zip
+			</fileNamePattern> <!-- daily rollover -->
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="NewPlayer_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+			<evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+				<marker>NewPlayer</marker>
+			</evaluator>
+			<OnMismatch>DENY</OnMismatch>
+			<OnMatch>ACCEPT</OnMatch>
+		</filter>
+		<file>log/new_player.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>log/backup/new_player.%d{yyyy-MM-dd}.log.zip
+			</fileNamePattern> <!-- daily rollover -->
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="LogInOut_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+			<evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+				<marker>LogInOut</marker>
+			</evaluator>
+			<OnMismatch>DENY</OnMismatch>
+			<OnMatch>ACCEPT</OnMatch>
+		</filter>
+		<file>log/login_logout.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>log/backup/login_logout.%d{yyyy-MM-dd}.log.zip
+			</fileNamePattern> <!-- daily rollover -->
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+	
+<appender name="LogIn_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+		<evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+			<marker>LogIn</marker>
+		</evaluator>
+		<OnMismatch>DENY</OnMismatch>
+		<OnMatch>ACCEPT</OnMatch>
+	</filter>
+	<file>log/login_log.log</file>
+	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+		<fileNamePattern>log/backup/login_log.%d{yyyy-MM-dd}.log.zip
+		</fileNamePattern> <!-- daily rollover -->
+	</rollingPolicy>
+	<encoder>
+		<charset>UTF-8</charset>
+		<pattern>%msg%n</pattern>
+	</encoder>
+</appender>
+
+	<appender name="SystemError_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+			<evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+				<marker>SystemError</marker>
+			</evaluator>
+			<OnMismatch>DENY</OnMismatch>
+			<OnMatch>ACCEPT</OnMatch>
+		</filter>
+		<file>log/sys_error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>log/backup/sys_error.%d{yyyy-MM-dd}.log.zip
+			</fileNamePattern> <!-- daily rollover -->
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="LevelUp_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+			<evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+				<marker>LevelUp</marker>
+			</evaluator>
+			<OnMismatch>DENY</OnMismatch>
+			<OnMatch>ACCEPT</OnMatch>
+		</filter>
+		<file>log/player_levelup.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>log/backup/player_levelup.%d{yyyy-MM-dd}.log.zip
+			</fileNamePattern> <!-- daily rollover -->
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<logger name="gameserver.logging.LogService" level="INFO">
+		<appender-ref ref="Event_LOG" />
+		<appender-ref ref="Item_LOG" />
+		<appender-ref ref="Store_LOG" />
+		<appender-ref ref="Recharge_LOG" />
+		<appender-ref ref="NewPlayer_LOG" />
+		<appender-ref ref="LogInOut_LOG" />
+		<appender-ref ref="LogIn_LOG" />
+		<appender-ref ref="SystemError_LOG" />
+		<appender-ref ref="LevelUp_LOG" />
+	</logger>
+
+	<root level="info">
+		<appender-ref ref="DEBUG_LOG" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="ERRORS_LOG" />
+	</root>
+</configuration>

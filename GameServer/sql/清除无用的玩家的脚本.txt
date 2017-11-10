@@ -1,0 +1,99 @@
+
+select count(*) from gameserver1.player where vipLevel=0 and level < 10 and last_offline_time > "2014-01-20 00:00:00" and last_offline_time < "2014-06-20 00:00:00" and belong_legion=0 and player_id not in (select player_id from shareserver.recharge_log);
+select count(*) from gameserver2.player where vipLevel=0 and level < 10 and last_offline_time > "2014-01-20 00:00:00" and last_offline_time < "2014-06-20 00:00:00" and belong_legion=0 and player_id not in (select player_id from shareserver.recharge_log);
+select count(*) from gameserver3.player where vipLevel=0 and level < 10 and last_offline_time > "2014-01-20 00:00:00" and last_offline_time < "2014-06-20 00:00:00" and belong_legion=0 and player_id not in (select player_id from shareserver.recharge_log);
+
+
+use shareserver;
+create table if not exists delete_player(player_id bigint(11));
+delete from delete_player;
+
+insert into shareserver.delete_player select player_id from gameserver1.player where vipLevel=0 and level < 10 and last_offline_time > "2014-01-20 00:00:00" and last_offline_time < "2014-06-20 00:00:00" and belong_legion=0 and player_id not in (select player_id from shareserver.recharge_log);
+insert into shareserver.delete_player select player_id from gameserver2.player where vipLevel=0 and level < 10 and last_offline_time > "2014-01-20 00:00:00" and last_offline_time < "2014-06-20 00:00:00" and belong_legion=0 and player_id not in (select player_id from shareserver.recharge_log);
+insert into shareserver.delete_player select player_id from gameserver3.player where vipLevel=0 and level < 10 and last_offline_time > "2014-01-20 00:00:00" and last_offline_time < "2014-06-20 00:00:00" and belong_legion=0 and player_id not in (select player_id from shareserver.recharge_log);
+
+delete from gameserver1.player where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver2.player where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver3.player where player_id in (select player_id from shareserver.delete_player);
+
+
+delete from gameserver1.active_state where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver2.active_state where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver3.active_state where player_id in (select player_id from shareserver.delete_player);
+
+
+delete from gameserver1.airsupport where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver2.airsupport where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver3.airsupport where player_id in (select player_id from shareserver.delete_player);
+
+
+delete from gameserver1.build where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver2.build where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver3.build where player_id in (select player_id from shareserver.delete_player);
+
+
+delete from gameserver1.corps where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver2.corps where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver3.corps where player_id in (select player_id from shareserver.delete_player);
+
+
+delete from gameserver1.Hero where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver2.Hero where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver3.Hero where player_id in (select player_id from shareserver.delete_player);
+
+delete from gameserver1.item where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver2.item where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver3.item where player_id in (select player_id from shareserver.delete_player);
+
+
+delete from gameserver1.LevReward where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver2.LevReward where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver3.LevReward where player_id in (select player_id from shareserver.delete_player);
+
+
+delete from gameserver1.mail where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver2.mail where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver3.mail where player_id in (select player_id from shareserver.delete_player);
+
+
+delete from gameserver1.task where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver2.task where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver3.task where player_id in (select player_id from shareserver.delete_player);
+
+delete from gameserver1.tech where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver2.tech where player_id in (select player_id from shareserver.delete_player);
+delete from gameserver3.tech where player_id in (select player_id from shareserver.delete_player);
+
+delete from gameserver1.Medal where hero_id not in (select hero_id from gameserver1.Hero);
+delete from gameserver2.Medal where hero_id not in (select hero_id from gameserver2.Hero);
+delete from gameserver3.Medal where hero_id not in (select hero_id from gameserver3.Hero);
+
+delete from shareserver.account where player_id in (select player_id from shareserver.delete_player);
+delete from shareserver.pvp_match where player_id in (select player_id from shareserver.delete_player);
+
+delete from shareserver.attack_report where owen_id in (select player_id from shareserver.delete_player);
+delete from shareserver.attack_report where target_id in (select player_id from shareserver.delete_player);
+delete from shareserver.attack_report where time < "2014-06-20 00:00:00";
+
+delete from shareserver.defend_report where owen_id in (select player_id from shareserver.delete_player);
+delete from shareserver.defend_report where target_id in (select player_id from shareserver.delete_player);
+delete from shareserver.defend_report where time < "2014-06-20 00:00:00";
+
+
+delete from shareserver.Video where video_id not in (select video_id from shareserver.attack_report);
+delete from shareserver.legion where is_enable=0;
+
+delete from shareserver.chat;
+delete from shareserver.requestHelp where time < "2014-10-14 00:00:00";
+delete from shareserver.requestMoneyOrCropHelp where time < "2014-10-14 00:00:00";
+delete from shareserver.bug_report where bug_time < "2014-10-14 00:00:00";
+
+
+
+
+
+
+
+
+
+

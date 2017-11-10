@@ -1,0 +1,20 @@
+delete from gameserver1.player where player_id in (select player_id from shareserver.pvp_match where robot=1);
+delete from gameserver1.build where player_id in (select player_id from shareserver.pvp_match where robot=1);
+delete from gameserver1.corps where player_id in (select player_id from shareserver.pvp_match where robot=1);
+delete from gameserver1.Hero where player_id in (select player_id from shareserver.pvp_match where robot=1);
+delete from gameserver1.item where player_id in (select player_id from shareserver.pvp_match where robot=1);
+
+delete from gameserver2.player where player_id in (select player_id from shareserver.pvp_match where robot=1);
+delete from gameserver2.build where player_id in (select player_id from shareserver.pvp_match where robot=1);
+delete from gameserver2.corps where player_id in (select player_id from shareserver.pvp_match where robot=1);
+delete from gameserver2.Hero where player_id in (select player_id from shareserver.pvp_match where robot=1);
+delete from gameserver2.item where player_id in (select player_id from shareserver.pvp_match where robot=1);
+
+delete from gameserver3.player where player_id in (select player_id from shareserver.pvp_match where robot=1);
+delete from gameserver3.build where player_id in (select player_id from shareserver.pvp_match where robot=1);
+delete from gameserver3.corps where player_id in (select player_id from shareserver.pvp_match where robot=1);
+delete from gameserver3.Hero where player_id in (select player_id from shareserver.pvp_match where robot=1);
+delete from gameserver3.item where player_id in (select player_id from shareserver.pvp_match where robot=1);
+
+delete from shareserver.account where player_id in (select player_id from shareserver.pvp_match where robot=1);
+delete from shareserver.pvp_match where robot=1;

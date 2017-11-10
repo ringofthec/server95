@@ -1,0 +1,30 @@
+database.driver = com.mysql.jdbc.Driver
+database.minconnections = 2
+database.maxconnections = 10
+database.daopath = data/scripts/database/
+database.minevictableidletimemillis = 60000
+database.timebetweenevictionrunsmillis = 600000
+
+tableconfig.tablePath = data/tables
+tableconfig.tableSuffix = .data
+
+serverconfig.listenip = localhost
+serverconfig.hostname = *
+serverconfig.name = GameServer
+serverconfig.connectionFactory = gameserver.network.server.connection.ConnectionFactoryImpl
+
+
+httpserverconfig.scriptDescriptor = data/scripts/httpserver
+
+managementconfig.scriptDescriptor = data/scripts/management
+
+httpprocessconfig.address = http://localhost/Management/src/process/server/
+
+accountverifyconfig.address = http://www.toydog.com.cn:10000/Account/src/process/verify.php
+
+serverconfig.cn_black = true
+
+cache_ip_port=localhost:11210
+keys_name=data_key
+data_over_time=30
+close_cache=false
